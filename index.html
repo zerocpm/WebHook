@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Telegram Bot WebHook</title>
+  <title>Telegram Bot WebHook O'chirish</title>
   <style>
-
-    *{
+    * {
         margin: 0;
         padding: 0;
     }
@@ -18,28 +17,28 @@
       background: #eef;
     }
     form {    
-        position: relative;
+      position: relative;
       width: auto;
       height: auto;
       background: white;
       padding: 120px 20px;
       border-radius: 10px;
-      box-shadow: 0 0  20px #ddd;
+      box-shadow: 0 0 20px #ddd;
     }
     input, button {
       display: block;
       margin: 10px 0;
       padding: 10px;
-      width: 305px;
+      width: 300px;
     }
-    input{
+    input {
         border-radius: 10px;
         border: 1px black solid;
     }
     button {
         color: #fff;
         width: 325px;
-        background: rgb(0, 153, 255);
+        background: rgb(255, 51, 51);
         border-radius: 10px;
         border: none;
         letter-spacing: 1.2px;
@@ -65,31 +64,42 @@
         width: 85%;
         background: rgb(0, 255, 72);
         border-radius: 5px;
+    }
+    
+.setPage{
+color: rgb(0, 102, 255);
+z-index: 1111;
+position: absolute;
+margin-top: 75px;
+display: flex;
+justify-content: center;
+align-self: center;
+text-decoration: none;
+left: 32%;
 }
   </style>
 </head>
 <body>
   <form id="webhookForm">
-    <h2>Telegram Webhook O'rnatish</h2>
+    <h2>Telegram Webhook O'chirish</h2>
     <input type="text" id="token" name="token" placeholder="Bot Token" required>
-    <input type="text" id="url" name="host" placeholder="Webhook URL" required>
-    <button type="submit">Webhook O'rnatish</button>
-      <pre id="response">Natija</pre>
+    <button type="submit">Webhook O'chirish</button>
+    <pre id="response">Natija</pre>
+     <a href="index.html" class="setPage">Webhook O'rnatish</a>
   </form>
   <script>
     document.getElementById('webhookForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const token = document.getElementById('token').value.trim();
-      const url = document.getElementById('url').value.trim();
       const responseBox = document.getElementById('response');
       
-      if (!token || !url) {
-        responseBox.textContent = "Iltimos, token va URL ni to‘ldiring.";
+      if (!token) {
+        responseBox.textContent = "Iltimos, tokenni kiriting.";
         return;
       }
 
-      const apiUrl = `https://api.telegram.org/bot${token}/setWebhook?url=${encodeURIComponent(url)}`;
+      const apiUrl = `https://api.telegram.org/bot${token}/deleteWebhook`;
       
       responseBox.textContent = "Yuborilmoqda...";
 
