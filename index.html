@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Telegram Bot WebHook</title>
+  <style>
+
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+      background: #eef;
+    }
+    form {    
+        position: relative;
+      width: auto;
+      height: auto;
+      background: white;
+      padding: 120px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0  20px #ddd;
+    }
+    input, button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 305px;
+    }
+    input{
+        border-radius: 10px;
+        border: 1px black solid;
+    }
+    button {
+        color: #fff;
+        width: 325px;
+        background: rgb(0, 153, 255);
+        border-radius: 10px;
+        border: none;
+        letter-spacing: 1.2px;
+        cursor: pointer;
+        transition: all .3s ease;
+        outline: none;
+        box-shadow: none;
+    }
+    button:hover {
+        letter-spacing: 2px;
+        font-weight: 666;
+    }
+    input::placeholder {
+        color: black;
+        font-weight: bold;
+    }
+    #response {
+        padding: 5px;
+        display: block;
+        text-align: center;
+        position: absolute;
+        height: auto;
+        width: 85%;
+        background: rgb(0, 255, 72);
+        border-radius: 5px;
+}
+  </style>
+</head>
+<body>
+  <form id="webhookForm">
+    <h2>Telegram Webhook O'rnatish</h2>
+    <input type="text" id="token" name="token" placeholder="Bot Token" required>
+    <input type="text" id="url" name="host" placeholder="Webhook URL" required>
+    <button type="submit">Webhook O'rnatish</button>
+      <pre id="response">Natija</pre>
+  </form>
+  <script>
+    document.getElementById('webhookForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const token = document.getElementById('token').value.trim();
+      const url = document.getElementById('url').value.trim();
+      const responseBox = document.getElementById('response');
+      
+      if (!token || !url) {
+        responseBox.textContent = "Iltimos, token va URL ni to‘ldiring.";
+        return;
+      }
+
+      const apiUrl = `https://api.telegram.org/bot${token}/setWebhook?url=${encodeURIComponent(url)}`;
+      
+      responseBox.textContent = "Yuborilmoqda...";
+
+      try {
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        responseBox.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        responseBox.textContent = "Xatolik yuz berdi: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
